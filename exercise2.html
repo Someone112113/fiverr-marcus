@@ -62,7 +62,8 @@
       <form
         action="https://twasum.cdms.westernsydney.edu.au/twainfo/echo.php"
         method="post"
-        onsubmit="event.preventDefault(); validateForm();"
+        name="myForm"
+        onsubmit="submitForm()"
         id="registration-form"
       >
         <hr />
@@ -112,6 +113,7 @@
                 type="text"
                 name="address"
                 id="address"
+                size="50"
                 placeholder="74 Bellion Drive, Carlotta, Western Australia"
                 required
               />
@@ -142,9 +144,11 @@
                 type="text"
                 name="contact-name"
                 id="contact-name"
+                pattern="[A-Za-z- ]+"
                 placeholder="Simon Wyatt"
                 required
               />
+              <span class="warning-text" id="contact-name-warning"></span>
             </td>
           </tr>
 
@@ -219,7 +223,12 @@
                   id="first-name-child-1"
                   class="first-name"
                   placeholder="Simon"
+                  pattern="[A-Za-z- ]+"
                 />
+                <span
+                  class="warning-text"
+                  id="child-1-first-name-warning"
+                ></span>
               </td>
             </tr>
             <tr>
@@ -231,7 +240,12 @@
                   id="last-name-child-1"
                   class="last-name"
                   placeholder="Wyatt"
+                  pattern="[A-Za-z- ]+"
                 />
+                <span
+                  class="warning-text"
+                  id="child-1-last-name-warning"
+                ></span>
               </td>
             </tr>
             <tr>
@@ -303,7 +317,12 @@
                   id="first-name-child-2"
                   class="first-name"
                   placeholder="Simon"
+                  pattern="[A-Za-z- ]+"
                 />
+                <span
+                  class="warning-text"
+                  id="child-2-first-name-warning"
+                ></span>
               </td>
             </tr>
             <tr>
@@ -315,7 +334,12 @@
                   id="last-name-child-2"
                   class="last-name"
                   placeholder="Wyatt"
+                  pattern="[A-Za-z- ]+"
                 />
+                <span
+                  class="warning-text"
+                  id="child-2-last-name-warning"
+                ></span>
               </td>
             </tr>
             <tr>
@@ -387,7 +411,12 @@
                   id="first-name-child-3"
                   class="first-name"
                   placeholder="Simon"
+                  pattern="[A-Za-z- ]+"
                 />
+                <span
+                  class="warning-text"
+                  id="child-3-first-name-warning"
+                ></span>
               </td>
             </tr>
             <tr>
@@ -399,7 +428,12 @@
                   id="last-name-child-3"
                   class="last-name"
                   placeholder="Wyatt"
+                  pattern="[A-Za-z- ]+"
                 />
+                <span
+                  class="warning-text"
+                  id="child-3-last-name-warning"
+                ></span>
               </td>
             </tr>
             <tr>
@@ -471,7 +505,12 @@
                   id="first-name-child-4"
                   class="first-name"
                   placeholder="Simon"
+                  pattern="[A-Za-z- ]+"
                 />
+                <span
+                  class="warning-text"
+                  id="child-4-first-name-warning"
+                ></span>
               </td>
             </tr>
             <tr>
@@ -483,7 +522,12 @@
                   id="last-name-child-4"
                   class="last-name"
                   placeholder="Wyatt"
+                  pattern="[A-Za-z- ]+"
                 />
+                <span
+                  class="warning-text"
+                  id="child-4-last-name-warning"
+                ></span>
               </td>
             </tr>
             <tr>
@@ -595,90 +639,189 @@
             provided</label
           >
         </div>
-      </form>
-      <hr />
-      <table class="total">
-        <thead>
-          <td>Child</td>
-          <td>Rego $</td>
-          <td>Gi $</td>
-          <td>Total $</td>
-        </thead>
-        <tr class="total-child" id="total-child-1">
-          <td>Child 1</td>
-          <td id="rego-child-1">$</td>
-          <td id="gi-child-1">$</td>
-          <td id="total-child-1">$</td>
-        </tr>
-        <tr class="total-child" id="total-child-2">
-          <td>Child 2</td>
-          <td id="rego-child-2">$</td>
-          <td id="gi-child-2">$</td>
-          <td id="total-child-2">$</td>
-        </tr>
-        <tr class="total-child" id="total-child-3">
-          <td>Child 3</td>
-          <td id="rego-child-3">$</td>
-          <td id="gi-child-3">$</td>
-          <td id="total-child-3">$</td>
-        </tr>
-        <tr class="total-child" id="total-child-4">
-          <td>Child 4</td>
-          <td id="rego-child-4">$</td>
-          <td id="gi-child-4">$</td>
-          <td id="total-child-4">$</td>
-        </tr>
+        <hr />
+        <table class="total">
+          <thead>
+            <td>Child</td>
+            <td>Rego $</td>
+            <td>Gi $</td>
+            <td>Total $</td>
+          </thead>
+          <tr class="total-child" id="total-child-1">
+            <td>Child 1</td>
+            <td>
+              <input
+                type="text"
+                name="rego-child-1"
+                id="rego-child-1"
+                value="$"
+                disabled
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="gi-child-1"
+                id="gi-child-1"
+                value="$"
+                disabled
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="total-child-1"
+                id="total-child-1"
+                value="$"
+                disabled
+              />
+            </td>
+          </tr>
+          <tr class="total-child" id="total-child-2">
+            <td>Child 2</td>
+            <td>
+              <input
+                type="text"
+                name="rego-child-2"
+                id="rego-child-2"
+                value="$"
+                disabled
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="gi-child-2"
+                id="gi-child-2"
+                value="$"
+                disabled
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="total-child-2"
+                id="total-child-2"
+                value="$"
+                disabled
+              />
+            </td>
+          </tr>
+          <tr class="total-child" id="total-child-3">
+            <td>Child 3</td>
+            <td>
+              <input
+                type="text"
+                name="rego-child-3"
+                id="rego-child-3"
+                value="$"
+                disabled
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="gi-child-3"
+                id="gi-child-3"
+                value="$"
+                disabled
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="total-child-3"
+                id="total-child-3"
+                value="$"
+                disabled
+              />
+            </td>
+          </tr>
+          <tr class="total-child" id="total-child-4">
+            <td>Child 4</td>
+            <td>
+              <input
+                type="text"
+                name="rego-child-4"
+                id="rego-child-4"
+                value="$"
+                disabled
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="gi-child-4"
+                id="gi-child-4"
+                value="$"
+                disabled
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="total-child-4"
+                id="total-child-4"
+                value="$"
+                disabled
+              />
+            </td>
+          </tr>
 
-        <tr>
-          <td colspan="3"><b>Total</b></td>
-          <td>
-            <input
-              type="text"
-              name="total-total"
-              id="total-total"
-              value="$"
-              disabled
-            />
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3"><b>Shipping</b></td>
-          <td>
-            <input
-              type="text"
-              name="total-shipping"
-              id="total-gst"
-              value="$"
-              disabled
-            />
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3"><b>GST</b></td>
-          <td>
-            <input
-              type="text"
-              name="total-gst"
-              id="total-gst"
-              value="$"
-              disabled
-            />
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3"><b>Total + GST</b></td>
-          <td>
-            <input
-              type="text"
-              name="total-total-gst"
-              id="total-total-gst"
-              value="$"
-              disabled
-            />
-          </td>
-        </tr>
-      </table>
-      <input type="submit" value="Calculate" form="registration-form" />
+          <tr>
+            <td colspan="3"><b>Total</b></td>
+            <td>
+              <input
+                type="text"
+                name="total-total"
+                id="total-total"
+                value="$"
+                disabled
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3"><b>Shipping</b></td>
+            <td>
+              <input
+                type="text"
+                name="total-shipping"
+                id="total-gst"
+                value="$"
+                disabled
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3"><b>GST</b></td>
+            <td>
+              <input
+                type="text"
+                name="total-gst"
+                id="total-gst"
+                value="$"
+                disabled
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3"><b>Total + GST</b></td>
+            <td>
+              <input
+                type="text"
+                name="total-total-gst"
+                id="total-total-gst"
+                value="$"
+                disabled
+              />
+            </td>
+          </tr>
+        </table>
+        <div class="actions">
+          <button onclick="validateForm(event)">Calculate</button>
+          <button type="submit" disabled>Submit</button>
+        </div>
+      </form>
     </main>
   </body>
 </html>

@@ -30,12 +30,6 @@ form input {
 }
 
 form input[type="text"] {
-  width: 100%;
-}
-
-form input[name="club-num"],
-form input[name="postcode"],
-form input[name="phone"] {
   width: auto;
 }
 
@@ -125,16 +119,21 @@ tr {
   display: none;
 }
 
-input[type="submit"] {
-  float: right;
-  font-size: larger;
-}
-
 .total input {
   height: 100%;
   width: 100%;
   border: none;
   color: black;
   background-color: white;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.actions * {
   font-size: large;
 }
