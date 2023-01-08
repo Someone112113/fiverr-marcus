@@ -1,0 +1,140 @@
+* {
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: grey;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+main {
+  background-color: white;
+  width: clamp(500px, 70vw, 700px);
+  padding: 1em 2em;
+  border-radius: 8px;
+}
+
+.title {
+  color: blue;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  height: 2em;
+}
+
+form input[type="text"] {
+  width: 100%;
+}
+
+form input[name="club-num"],
+form input[name="postcode"],
+form input[name="phone"] {
+  width: auto;
+}
+
+form hr {
+  width: 100%;
+}
+
+form label {
+  vertical-align: middle;
+}
+
+tr {
+  height: 2.3em;
+}
+
+#details tr td:first-child {
+  width: 10em;
+}
+
+.num-child,
+.gi-purchase,
+.payment-method,
+.delivery-method {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.num-child input[type="radio"],
+.gi-purchase input[type="radio"],
+.payment-method input[type="radio"],
+.delivery-method input[type="radio"] {
+  position: absolute;
+  z-index: -1;
+}
+
+.num-child label,
+.gi-purchase label,
+.payment-method label,
+.delivery-method label {
+  padding: 0.1em 0.5em;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid black;
+  background-color: lightgray;
+}
+
+.num-child input[type="radio"]:checked + label,
+.gi-purchase input[type="radio"]:checked + label,
+.payment-method input[type="radio"]:checked + label,
+.delivery-method input[type="radio"]:checked + label {
+  background-color: blue;
+  color: white;
+}
+
+.child-details {
+  margin-top: 10px;
+  padding: 10px;
+  border: 2px dashed black;
+  display: none;
+}
+
+.warning-text {
+  margin-left: 5px;
+  color: red;
+  font-style: italic;
+  visibility: hidden;
+  vertical-align: middle;
+}
+
+.total {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.total thead {
+  font-weight: bold;
+  text-align: center;
+}
+
+.total td {
+  border: 1px solid black;
+  padding: 0.5em;
+}
+
+.total-child {
+  display: none;
+}
+
+input[type="submit"] {
+  float: right;
+  font-size: larger;
+}
+
+.total input {
+  height: 100%;
+  width: 100%;
+  border: none;
+  color: black;
+  background-color: white;
+  font-size: large;
+}

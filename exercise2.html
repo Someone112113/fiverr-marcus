@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="formStyles.css" />
+    <script src="formValidation.js" defer></script>
+    <script defer>
+      function showChild(numChild) {
+        document
+          .querySelectorAll(".child-details")
+          .forEach((element) => (element.style.display = "none"));
+        document
+          .querySelectorAll(".first-name")
+          .forEach((element) => (element.required = false));
+        document
+          .querySelectorAll(".last-name")
+          .forEach((element) => (element.required = false));
+        document
+          .querySelectorAll(".membership")
+          .forEach((element) => (element.required = false));
+        document
+          .querySelectorAll(".gi-purchase")
+          .forEach((element) => (element.required = false));
+
+        document
+          .querySelectorAll(".total-child")
+          .forEach((element) => (element.style.display = "none"));
+        for (let i = 1; i < numChild + 1; i++) {
+          document.querySelector("#child-details-" + i).style.display = "block";
+          document.querySelector("#first-name-child-" + i).required = true;
+          document.querySelector("#last-name-child-" + i).required = true;
+          document.querySelector("#membership-child-" + i).required = true;
+          document.querySelector(
+            "input[name='gi-purchase-child-" + i + "']"
+          ).required = true;
+
+          document.querySelector("#total-child-" + i).style.display =
+            "table-row";
+        }
+      }
+
+      function showGi(childNo, show) {
+        document.querySelector("#gi-size-child-" + childNo).style.display = show
+          ? "table-row"
+          : "none";
+        document.querySelector(
+          "#gi-warning-child-" + childNo
+        ).style.visibility = show ? "hidden" : "visible";
+      }
+    </script>
+    <title>Exercise 2</title>
+  </head>
+  <body>
+    <main>
+      <h1 class="title">KarateKids Registration</h1>
+      <i>
+        Please PRINT clearly in BLOCK letters - we will not be responsible for
+        spelling errors made because we could not read writing.
+      </i>
+      <form
+        action="https://twasum.cdms.westernsydney.edu.au/twainfo/echo.php"
+        method="post"
+        onsubmit="event.preventDefault(); validateForm();"
+        id="registration-form"
+      >
+        <hr />
+        <table id="details">
+          <tr>
+            <td><label for="date"> Date: </label></td>
+            <td>
+              <input type="date" name="date" id="date" required />
+              <span class="warning-text" id="date-warning"></span>
+            </td>
+          </tr>
+
+          <tr>
+            <td><label for="club-name"> Club Name: </label></td>
+            <td>
+              <input
+                type="text"
+                name="club-name"
+                id="club-name"
+                placeholder="Karate"
+                required
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td><label for="club-num"> Club #: </label></td>
+            <td>
+              <input
+                type="text"
+                name="club-num"
+                id="club-num"
+                placeholder="K###"
+                maxlength="4"
+                size="4"
+                pattern="^K[A-Z0-9]{3}"
+                required
+              />
+              <span class="warning-text" id="club-num-warning"></span>
+            </td>
+          </tr>
+
+          <tr>
+            <td><label for="address"> Address: </label></td>
+            <td>
+              <input
+                type="text"
+                name="address"
+                id="address"
+                placeholder="74 Bellion Drive, Carlotta, Western Australia"
+                required
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td><label for="postcode"> Post Code: </label></td>
+            <td>
+              <input
+                type="text"
+                name="postcode"
+                id="postcode"
+                maxlength="4"
+                size="4"
+                placeholder="1234"
+                pattern="[0-9]{4}"
+                required
+              />
+              <span class="warning-text" id="postcode-warning"></span>
+            </td>
+          </tr>
+
+          <tr>
+            <td><label for="contact-name"> Contact Name: </label></td>
+            <td>
+              <input
+                type="text"
+                name="contact-name"
+                id="contact-name"
+                placeholder="Simon Wyatt"
+                required
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td><label for="phone"> Phone: </label></td>
+            <td>
+              <input
+                type="text"
+                name="phone"
+                id="phone"
+                maxlength="10"
+                size="10"
+                pattern="[0-9]{10}"
+                placeholder="1234567890"
+                required
+              />
+              <span class="warning-text" id="phone-warning"></span>
+            </td>
+          </tr>
+        </table>
+        <hr />
+        <h3>Membership Registration:</h3>
+        <b>Number of children:</b>
+        <div class="num-child">
+          <input
+            type="radio"
+            name="num-child"
+            id="num-child-1"
+            value="1"
+            onclick="showChild(1)"
+            required
+          />
+          <label for="num-child-1"> 1 </label>
+          <input
+            type="radio"
+            name="num-child"
+            id="num-child-2"
+            value="2"
+            onclick="showChild(2)"
+            required
+          />
+          <label for="num-child-2"> 2 </label>
+          <input
+            type="radio"
+            name="num-child"
+            id="num-child-3"
+            value="3"
+            onclick="showChild(3)"
+            required
+          />
+          <label for="num-child-3"> 3 </label>
+          <input
+            type="radio"
+            name="num-child"
+            id="num-child-4"
+            value="4"
+            onclick="showChild(4)"
+            required
+          />
+          <label for="num-child-4"> 4 </label>
+        </div>
+
+        <div class="child-details" id="child-details-1">
+          <b>Child 1</b>
+          <table>
+            <tr>
+              <td><label for="first-name-child-1"> First Name: </label></td>
+              <td>
+                <input
+                  type="text"
+                  name="first-name-child-1"
+                  id="first-name-child-1"
+                  class="first-name"
+                  placeholder="Simon"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="last-name-child-1"> Last Name: </label></td>
+              <td>
+                <input
+                  type="text"
+                  name="last-name-child-1"
+                  id="last-name-child-1"
+                  class="last-name"
+                  placeholder="Wyatt"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="membership-child-1"> Membership: </label></td>
+              <td>
+                <select
+                  name="membership-child-1"
+                  id="membership-child-1"
+                  class="membership"
+                >
+                  <option value="3">3 months - $220</option>
+                  <option value="6">6 months - $400</option>
+                  <option value="12">12 months - $700</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><span> Gi Purchase: </span></td>
+              <td>
+                <div class="gi-purchase">
+                  <input
+                    type="radio"
+                    name="gi-purchase-child-1"
+                    id="gi-purchase-child-1-yes"
+                    class="gi-purchase"
+                    value="Yes"
+                    onclick="showGi(1, true)"
+                    checked
+                  />
+                  <label for="gi-purchase-child-1-yes"> Yes </label>
+                  <input
+                    type="radio"
+                    name="gi-purchase-child-1"
+                    id="gi-purchase-child-1-no"
+                    class="gi-purchase"
+                    value="No"
+                    onclick="showGi(1, false)"
+                  />
+                  <label for="gi-purchase-child-1-no"> No </label>
+                  <span class="gi-warning warning-text" id="gi-warning-child-1">
+                    Please note: Only those with a Gi can participate.
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <tr id="gi-size-child-1">
+              <td><label for="child-1-gi-size"> Gi Size: </label></td>
+              <td>
+                <select name="child-1-gi-size" id="child-1-gi-size">
+                  <option value="S">Small - $110.00</option>
+                  <option value="M">Medium - $120.00</option>
+                  <option value="L">Large - $130.00</option>
+                  <option value="XL">Extra Large - $130.00</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="child-details" id="child-details-2">
+          <b>Child 2</b>
+          <table>
+            <tr>
+              <td><label for="first-name-child-2"> First Name: </label></td>
+              <td>
+                <input
+                  type="text"
+                  name="first-name-child-2"
+                  id="first-name-child-2"
+                  class="first-name"
+                  placeholder="Simon"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="last-name-child-2"> Last Name: </label></td>
+              <td>
+                <input
+                  type="text"
+                  name="last-name-child-2"
+                  id="last-name-child-2"
+                  class="last-name"
+                  placeholder="Wyatt"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="membership-child-2"> Membership: </label></td>
+              <td>
+                <select
+                  name="membership-child-2"
+                  id="membership-child-2"
+                  class="membership"
+                >
+                  <option value="3">3 months - $220</option>
+                  <option value="6">6 months - $400</option>
+                  <option value="12">12 months - $700</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><span> Gi Purchase: </span></td>
+              <td>
+                <div class="gi-purchase">
+                  <input
+                    type="radio"
+                    name="gi-purchase-child-2"
+                    id="gi-purchase-child-2-yes"
+                    class="gi-purchase"
+                    value="Yes"
+                    onclick="showGi(2, true)"
+                    checked
+                  />
+                  <label for="gi-purchase-child-2-yes"> Yes </label>
+                  <input
+                    type="radio"
+                    name="gi-purchase-child-2"
+                    id="gi-purchase-child-2-no"
+                    class="gi-purchase"
+                    value="No"
+                    onclick="showGi(2, false)"
+                  />
+                  <label for="gi-purchase-child-2-no"> No </label>
+                  <span class="gi-warning warning-text" id="gi-warning-child-2">
+                    Please note: Only those with a Gi can participate.
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <tr id="gi-size-child-2">
+              <td><label for="child-2-gi-size"> Gi Size: </label></td>
+              <td>
+                <select name="child-2-gi-size" id="child-2-gi-size">
+                  <option value="S">Small - $110.00</option>
+                  <option value="M">Medium - $120.00</option>
+                  <option value="L">Large - $130.00</option>
+                  <option value="XL">Extra Large - $130.00</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="child-details" id="child-details-3">
+          <b>Child 3</b>
+          <table>
+            <tr>
+              <td><label for="first-name-child-3"> First Name: </label></td>
+              <td>
+                <input
+                  type="text"
+                  name="first-name-child-3"
+                  id="first-name-child-3"
+                  class="first-name"
+                  placeholder="Simon"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="last-name-child-3"> Last Name: </label></td>
+              <td>
+                <input
+                  type="text"
+                  name="last-name-child-3"
+                  id="last-name-child-3"
+                  class="last-name"
+                  placeholder="Wyatt"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="membership-child-3"> Membership: </label></td>
+              <td>
+                <select
+                  name="membership-child-3"
+                  id="membership-child-3"
+                  class="membership"
+                >
+                  <option value="3">3 months - $220</option>
+                  <option value="6">6 months - $400</option>
+                  <option value="12">12 months - $700</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><span> Gi Purchase: </span></td>
+              <td>
+                <div class="gi-purchase">
+                  <input
+                    type="radio"
+                    name="gi-purchase-child-3"
+                    id="gi-purchase-child-3-yes"
+                    class="gi-purchase"
+                    value="Yes"
+                    onclick="showGi(3, true)"
+                    checked
+                  />
+                  <label for="gi-purchase-child-3-yes"> Yes </label>
+                  <input
+                    type="radio"
+                    name="gi-purchase-child-3"
+                    id="gi-purchase-child-3-no"
+                    class="gi-purchase"
+                    value="No"
+                    onclick="showGi(3, false)"
+                  />
+                  <label for="gi-purchase-child-3-no"> No </label>
+                  <span class="gi-warning warning-text" id="gi-warning-child-3">
+                    Please note: Only those with a Gi can participate.
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <tr id="gi-size-child-3">
+              <td><label for="child-3-gi-size"> Gi Size: </label></td>
+              <td>
+                <select name="child-3-gi-size" id="child-3-gi-size">
+                  <option value="S">Small - $110.00</option>
+                  <option value="M">Medium - $120.00</option>
+                  <option value="L">Large - $130.00</option>
+                  <option value="XL">Extra Large - $130.00</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="child-details" id="child-details-4">
+          <b>Child 4</b>
+          <table>
+            <tr>
+              <td><label for="first-name-child-4"> First Name: </label></td>
+              <td>
+                <input
+                  type="text"
+                  name="first-name-child-4"
+                  id="first-name-child-4"
+                  class="first-name"
+                  placeholder="Simon"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="last-name-child-4"> Last Name: </label></td>
+              <td>
+                <input
+                  type="text"
+                  name="last-name-child-4"
+                  id="last-name-child-4"
+                  class="last-name"
+                  placeholder="Wyatt"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td><label for="membership-child-4"> Membership: </label></td>
+              <td>
+                <select
+                  name="membership-child-4"
+                  id="membership-child-4"
+                  class="membership"
+                >
+                  <option value="3">3 months - $220</option>
+                  <option value="6">6 months - $400</option>
+                  <option value="12">12 months - $700</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td><span> Gi Purchase: </span></td>
+              <td>
+                <div class="gi-purchase">
+                  <input
+                    type="radio"
+                    name="gi-purchase-child-4"
+                    id="gi-purchase-child-4-yes"
+                    class="gi-purchase"
+                    value="Yes"
+                    onclick="showGi(4, true)"
+                    checked
+                  />
+                  <label for="gi-purchase-child-4-yes"> Yes </label>
+                  <input
+                    type="radio"
+                    name="gi-purchase-child-4"
+                    id="gi-purchase-child-4-no"
+                    class="gi-purchase"
+                    value="No"
+                    onclick="showGi(4, false)"
+                  />
+                  <label for="gi-purchase-child-4-no"> No </label>
+                  <span class="gi-warning warning-text" id="gi-warning-child-4">
+                    Please note: Only those with a Gi can participate.
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <tr id="gi-size-child-4">
+              <td><label for="child-4-gi-size"> Gi Size: </label></td>
+              <td>
+                <select name="child-4-gi-size" id="child-4-gi-size">
+                  <option value="S">Small - $110.00</option>
+                  <option value="M">Medium - $120.00</option>
+                  <option value="L">Large - $130.00</option>
+                  <option value="XL">Extra Large - $130.00</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <br />
+        <b>Payment Method:</b>
+        <div class="payment-method">
+          <input
+            type="radio"
+            name="payment-method"
+            id="payment-method-cash"
+            value="Cash"
+            required
+          />
+          <label for="payment-method-cash"> Cash </label>
+          <input
+            type="radio"
+            name="payment-method"
+            id="payment-method-direct-deposit"
+            value="Direct Deposit"
+            required
+          />
+          <label for="payment-method-direct-deposit"> Direct Deposit </label>
+          <input
+            type="radio"
+            name="payment-method"
+            id="payment-method-credit-card"
+            value="Credit Card"
+            required
+          />
+          <label for="payment-method-credit-card"> Credit Card </label>
+        </div>
+
+        <br />
+        <b>Delivery Method:</b>
+        <div class="delivery-method">
+          <input
+            type="radio"
+            name="delivery-method"
+            id="delivery-method-pick-up"
+            value="Pick Up"
+            required
+          />
+          <label for="delivery-method-pick-up"> Pick Up </label>
+          <input
+            type="radio"
+            name="delivery-method"
+            id="delivery-method-direct-shipped"
+            value="Shipped"
+            required
+          />
+          <label for="delivery-method-direct-shipped">
+            Shipped (extra $10) - will be shipped to above address
+            provided</label
+          >
+        </div>
+      </form>
+      <hr />
+      <table class="total">
+        <thead>
+          <td>Child</td>
+          <td>Rego $</td>
+          <td>Gi $</td>
+          <td>Total $</td>
+        </thead>
+        <tr class="total-child" id="total-child-1">
+          <td>Child 1</td>
+          <td id="rego-child-1">$</td>
+          <td id="gi-child-1">$</td>
+          <td id="total-child-1">$</td>
+        </tr>
+        <tr class="total-child" id="total-child-2">
+          <td>Child 2</td>
+          <td id="rego-child-2">$</td>
+          <td id="gi-child-2">$</td>
+          <td id="total-child-2">$</td>
+        </tr>
+        <tr class="total-child" id="total-child-3">
+          <td>Child 3</td>
+          <td id="rego-child-3">$</td>
+          <td id="gi-child-3">$</td>
+          <td id="total-child-3">$</td>
+        </tr>
+        <tr class="total-child" id="total-child-4">
+          <td>Child 4</td>
+          <td id="rego-child-4">$</td>
+          <td id="gi-child-4">$</td>
+          <td id="total-child-4">$</td>
+        </tr>
+
+        <tr>
+          <td colspan="3"><b>Total</b></td>
+          <td>
+            <input
+              type="text"
+              name="total-total"
+              id="total-total"
+              value="$"
+              disabled
+            />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3"><b>Shipping</b></td>
+          <td>
+            <input
+              type="text"
+              name="total-shipping"
+              id="total-gst"
+              value="$"
+              disabled
+            />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3"><b>GST</b></td>
+          <td>
+            <input
+              type="text"
+              name="total-gst"
+              id="total-gst"
+              value="$"
+              disabled
+            />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3"><b>Total + GST</b></td>
+          <td>
+            <input
+              type="text"
+              name="total-total-gst"
+              id="total-total-gst"
+              value="$"
+              disabled
+            />
+          </td>
+        </tr>
+      </table>
+      <input type="submit" value="Calculate" form="registration-form" />
+    </main>
+  </body>
+</html>
