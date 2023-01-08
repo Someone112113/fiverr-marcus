@@ -1,4 +1,5 @@
 function validateForm(event) {
+  event.preventDefault();
   let ok = true;
   const date = new Date(document.querySelector("#date").value);
   const now = new Date();
@@ -87,7 +88,6 @@ function validateForm(event) {
   }
 
   if (ok) {
-    event.preventDefault();
     let total = 0;
     for (let childNo = 1; childNo < parseInt(numChild) + 1; childNo++) {
       let rego = 0;
@@ -122,11 +122,21 @@ function validateForm(event) {
       document.querySelector("#gi-child-" + childNo).value = "$" + gi;
 
       const totalChild = rego + gi;
-      document.querySelector("total-child-" + childNo).value = "$" + totalChild;
+      document.querySelector("#total-cost-child-" + childNo).value =
+        "$" + totalChild;
       total += totalChild;
     }
 
     document.querySelector("#total-total").value = "$" + total;
+    if (document.querySelector("#delivery-method-direct-shipped").checked) {
+      document.querySelector("#total-shipping").value = "$10";
+      total += 10;
+    } else {
+      document.querySelector("#total-shipping").value = "$0";
+    }
+    document.querySelector("#total-gst").value = "$" + total * 0.1;
+    document.querySelector("#total-total-gst").value = "$" + total * 1.1;
+    document.querySelector("#submit-button").disabled = false;
   } else {
     alert("Invalid input");
   }
@@ -134,7 +144,13 @@ function validateForm(event) {
 
 function submitForm() {
   document.myForm.date.type = "text";
-  document.myForm.date.value = date.toLocaleDateString("en-GB");
+  document.myForm.date.value = new Date(
+    document.querySelector("#date").value
+  ).toLocaleDateString("en-GB");
+
+  const numChild = document.querySelector(
+    "input[name='num-child']:checked"
+  ).value;
 
   for (let childNo = parseInt(numChild) + 1; childNo < 5; childNo++) {
     const element = document.querySelector("#child-details-" + childNo);
